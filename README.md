@@ -1,6 +1,10 @@
+# HomeKeeper Deliverabble 3.2.2. 
 
+This project is a part of the HomeKeeper Deliverabble 3.2.2.
+It contains the software produced during the project.
+It has been written by Ismail El Hachimi.
 
-# French Word Embeddings
+## French Word Embeddings
 French Word Embeddings from series subtitles.
 
 The current repository includes three versions of word embeddings :
@@ -15,13 +19,13 @@ Currently, the vocabulary is about 25k words based on subtitles after the prepro
 
 The vocabulary is clean and contains simple and meaningful words.
 
-# Reproduction 
+## Reproduction 
 
 To reproduce the Word Embeddings, one must pre-process the files after scraping `sous-titres.eu`. This website is the source of data used in this project. The current pre-processing scripts aren't well made, because the files in the website do not follow a specific naming protocol. Thus, only the scraping file is provided. 
 
 In future work, I will create a pre-processing script that gathers the whole data with minimum possible issues and errors.
 
-## Scraping
+### Scraping
 
 To launch the scraping script, all you have to do is setting up the environment which includes the following packages :
 
@@ -41,7 +45,7 @@ The command line to launch the scraper script is simply the following :
 
 You may leave series_name empty. To get more series, please refer to the website. This scraper doesn'ts pull all the series, only the provided ones are scraped. This helps get specific text data for a specific problem to avoid using biased data. For our project, I scraped family series like 'How I Met Your Mother'.
 
-## Word Embeddings Models
+### Word Embeddings Models
 
 The file `data.txt`, in [Data](https://github.com/Ismailhachimi/WordEmbeddings_fr/blob/master/Data) repository, is the result of a pre-processing phase of a list of series. Currently, it includes 7xx.xxx sentences. There is more available data, but still under pre-processing to make sure it's clean.
 
@@ -58,7 +62,7 @@ To Install glove-python, you may use the following command line :
 
 	pip install glove_python
 ___
-## Intention Model
+### Intention Model
 
 In this section, I use a pretrained FastText model to train an intention model for Sequence-to-Class (Seq2Class). In case you need the pretrained models, you can download them via this [LINK](https://www.dropbox.com/sh/7rt459ivnydpl0u/AAAOelXsVJjHjk1ZrNVhX6TTa?dl=0). You may as well train your the FastText model and use it in this part.
 
