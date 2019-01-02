@@ -3,6 +3,7 @@
 This project is a part of the HomeKeeper Deliverabble 3.2.2.
 It contyains a step towards understanding the state of the art of text classification in deep learning. 
 As a result, we propose an attention-based architecture as a contribution.
+It has been written with Ismail El Hachimi and Assvine Tharmarajah.
 
 ## Project Plan
 1. [Introduction](#1-introduction)
