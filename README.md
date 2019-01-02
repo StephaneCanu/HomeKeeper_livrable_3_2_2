@@ -1,104 +1,76 @@
-# Text Classification With Attention-based Neural Networks
+# French Word Embeddings
+French Word Embeddings from series subtitles.
 
-This project is a part of the HomeKeeper Deliverabble 3.2.2.
-It contyains a step towards understanding the state of the art of text classification in deep learning. 
-As a result, we propose an attention-based architecture as a contribution.
-It has been written with Ismail El Hachimi and Assvine Tharmarajah.
+The current repository includes three versions of word embeddings :
 
-## Project Plan
-1. [Introduction](#1-introduction)
-2. [State of the art](#2-state-of-the-art)
-    1. [Word representation](#i-word-representation)
-    2. [Text classification](#ii-text-classification)
-    	1. [Text classification technologies](#a-text-classification-technologies-)
-    	2. [Text classification in Deep Learning](#b-text-classification-in-deep-learning-)
-3. [Getting data](#3-getting-data)
-    1. [French audio data and Google Cloud Speech](#i-french-audio-data-and-google-cloud-speech)
-    2. [Text data for Arabic text classification](#ii-comparison-of-word-representation-models)
-4. [A text classification architecture](#4-a-text-classification-architecture)
-    1. [An overview of the solution](#i-an-overview-of-the-solution)
-    2. [Implementation and results](#ii-implementation-and-results)
-5. [Perspectives](#5-perspectives)
-6. [Conclusion](#6-conclusion)
-7. [Bibliography](#7-bibliography)
+  1. [Word2Vec](https://code.google.com/archive/p/word2vec/) by Google
+  2. [GloVe](https://nlp.stanford.edu/projects/glove/) by Stanford NLP
+  3. [FastText](https://fasttext.cc/) by Facebook's AI Research - FAIR
+ 
+All these models are trained using [Gensim](https://radimrehurek.com/gensim/) software's built-in functions.
 
-## 1. Introduction
+Currently, the vocabulary is about 25k words based on subtitles after the preproccessing phase. 
 
-This project is an assembly of research and learning processes which aims to understand the state-of-the-art of text classification in deep learning as it requires us to look for a relevant data source, go through word representation models and compare them as a first step. In the second phase, we compare text classification based technologies and we try to understand how they work. Finally, we explain in detail text classification in deep learning and propose an attention-based architecture as a result of this project.
+The vocabulary is clean and contains simple and meaningful words.
 
-## 2. State of the art
+**This work is still under development.**
+___
+# Reproduction 
 
-### i. Word representation
+To reproduce the Word Embeddings, one must pre-process the files after scraping `sous-titres.eu`. This website is the source of data used in this project. The current pre-processing scripts aren't well made, because the files in the website do not follow a specific naming protocol. Thus, only the scraping file is provided. 
 
-Word representation is a major change in NLP research due to its great help in late advances in different problems related to text analysis for specific topic : Text classification, Topic modeling, intention recognition etc.
+In future work, I will create a pre-processing script that gathers the whole data with minimum possible issues and errors.
 
-In this project, we try to elaborate the state of the art of text classification in Arabic using language models and deep learning. The use of language models is due to simplicity of intergration in a neural network and its intuition of representiong words in a vectorial space which helps calculating dependencies between words.
+## Scraping
 
-The main state of the art Word Representation models are : 
+To launch the scraping script, all you have to do is setting up the environment which includes the following packages :
 
->	- [Word2Vec](https://arxiv.org/pdf/1310.4546) (2013)
->	- [GloVe](https://nlp.stanford.edu/pubs/glove.pdf) (2015)
->	- [FastText](https://arxiv.org/pdf/1607.04606) (2017)
->	- [ELMo](https://arxiv.org/pdf/1802.05365) (2018)
+  1. [Requests](https://anaconda.org/anaconda/requests) for HTTP requests 
+  2. [BeautifulSoup](https://anaconda.org/anaconda/beautifulsoup4) for simple Scraping requests
 
-For the first part, we use a pretrained language model Word2Vec taken from this [Github Repository](https://github.com/bakrianoo/aravec) as a result of research paper mentioned in [Citation](#Citation). Thanks [bakrianoo - Abu Bakr Soliman](https://github.com/bakrianoo).
+I'm using Anaconda Distribution, if you need any specific instruction for the installation, pleace refer to this [tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-16-04) by DigitalOcean for Linux as a guide to get the environment set up. 
 
-#### Citation
+You may need to install other packages, but usually packages like `zipfile` and `time` come with Anaconda Distribution and you won't need to install them. Otherwise, To install the packages in Anaconda, please refer to the urls in the previous packages list. The following command is generally the most used one :
 
-> Abu Bakr Soliman, Kareem Eisa, and Samhaa R. El-Beltagy, “AraVec: A set of Arabic Word Embedding Models for use in Arabic NLP”, in proceedings of the 3rd International Conference on Arabic Computational Linguistics (ACLing 2017), Dubai, UAE, 2017.
+	conda install -c anaconda <package>
 
-### ii. Text classification
+The command line to launch the scraper script is simply the following : 
 
-#### a. Text classification technologies : 
 
-Today's technologies are a sort of dialog generation systems that offer a new type of user experience. Many technologies like Google's Assistant Bot, helps users to get their needs by offering automated tasks, supervision and dialog experience. Thus, a text classifier is an important component to achieve this. In fact, in order to execute a specific task, a component takes care of this task by mapping the input text from user's expression (which embeds a speech-to-text part) to a pre-defined task. For example : asking Amazon's virtual assistant Alexa to set the alarm on a specific time.
+	python scraper.py --serie <serie_name>
 
-To learn more about these systems, we will deploy on each of the following technologies a model to quantify the capacity of each one :
+You may leave series_name empty. To get more series, please refer to the website. This scraper doesn'ts pull all the series, only the provided ones are scraped. This helps get specific text data for a specific problem to avoid using biased data. For our project, I scraped family series like 'How I Met Your Mother'.
 
->   - Watson Knowledge Studio 
->   - Alexa Skills Kit 
->   - Google's DialogFlow
+## Word Embeddings Models
 
-All these technologies offer a free limited account.
+The file `data.txt`, in [Data](https://github.com/Ismailhachimi/WordEmbeddings_fr/blob/master/Data) repository, is the result of a pre-processing phase of a list of series. Currently, it includes 7xx.xxx sentences. There is more available data, but still under pre-processing to make sure it's clean.
 
-#### b. Text classification in deep learning :
+I'm using the file mentioned above, to build Word2Vec, GloVe and FastText language models to have a numerical presentation of words or in other words, Word Embeddings.
 
-In this part, we explain the state-of-the-art of text classification in deep learning by going through the relevant research result of previous years.
+As it may be clear that GloVe isn't doing good as Word2Vec or FastText, the problem may lie in the fact that data isn't as big as needed to train the model. The file `data.txt` will be filled with more data in the future.
 
-## 3. Getting data
+To reproduce the models, change hyperparameters, parameters or whatever you need, you can refer to the notebooks in the current directory. The notebooks are using the following packages : 
 
-### i. French audio data and Google Cloud Speech
+  1. [Gensim](https://anaconda.org/anaconda/gensim) A Topic Modeling library that includes a complete implementation of Word2Vec and FastText
+  2. [glove-python](https://github.com/maciejkula/glove-python) A librarie for GloVe in python
 
-In this part, we introduce Google Cloud API, which is a component of Google Cloud Platform. We use google speech API in order to map audio data to text data after scraping [this website](http://www.archives-manche.fr) which contains archives of old spoken french audio about many topics.
+To Install glove-python, you may use the following command line :
 
-First, we choosed this solution for French classification data in order to make an audio classifier using two components : Speech to Text and Text to action (or classification). In fact, this allowed us to see how GCP performs on noised data. After making some requests on few files from the said [website](http://www.archives-manche.fr), we concluded that we cannot rely on GCP Speech API due to its limitation to noiseless audio data. Finally, we choosed to let French text classification for futher work and focus on Arabic text classification.
+	pip install glove_python
+___
+## Intention Model
 
-### ii. Text data for Arabic text classification
+In this section, I use a pretrained FastText model to train an intention model for Sequence-to-Class (Seq2Class). In case you need the pretrained models, you can download them via this [LINK](https://www.dropbox.com/sh/7rt459ivnydpl0u/AAAOelXsVJjHjk1ZrNVhX6TTa?dl=0). You may as well train your the FastText model and use it in this part.
 
-In this part, we cite text data that we choosed to train our text classification model using Word2Vec word embedding model as marked in this [Section](#i-word-representation).
+**Please make sure you download all the files to avoid getting errors**
 
-The dataset is a collection of Arabic texts, which covers modern Arabic language used in newspapers articles. For this, we thank Mohamed BINIZ for making it available.
+The data used for this model is under the [POC](https://github.com/Ismailhachimi/WordEmbeddings_fr/blob/master/POC_data) repository. POC stands for Proof of Concept. The data is hand-maded and includes Input data `X` as a bunch of text sequences with a target `Y` which is a service label. This model maps an input request to a specific related website (Google, Youtube, LinkedIn, Booking, Amazon).
 
-#### Citation
+`Intention-Seq2Class` notebook contains the full implementation of the **Seq-to-Class with Intention** architecture.
 
-> Mohamed, BINIZ (2018), “DataSet for Arabic Classification”, Mendeley Data, v2
-> [DOI](http://dx.doi.org/10.17632/v524p5dhpj.2)
-> Dataset: DataSet for Arabic Classification
+To get a global view of the architecture, you may refer to this [image](https://github.com/Ismailhachimi/WordEmbeddings_fr/blob/master/images/seq2class_architecture.png) in the current repository.
 
-## 4. A text classification architecture
-
-### i. An overview of the solution
-
-### ii. Implementation and results
-
-## 5. Perspectives
-
-In this chapter, we proposed more ideas for future work on this project. 
-
-## 6. Conclusion
-
-A brief resume on the work during the project period, the achieved results and the future advances that might be applied to improve our solution.
-
-## 7. Bibliography
-
-> [References]
+Finally, `utils.py` contains a number of functions that are used in the word embeddings as in the intention model notebooks.
+___
+# License
+This work is licensed under the [MIT License](LICENSE).
