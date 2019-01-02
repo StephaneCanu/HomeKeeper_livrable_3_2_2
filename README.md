@@ -1,3 +1,5 @@
+
+
 # French Word Embeddings
 French Word Embeddings from series subtitles.
 
@@ -13,8 +15,6 @@ Currently, the vocabulary is about 25k words based on subtitles after the prepro
 
 The vocabulary is clean and contains simple and meaningful words.
 
-**This work is still under development.**
-___
 # Reproduction 
 
 To reproduce the Word Embeddings, one must pre-process the files after scraping `sous-titres.eu`. This website is the source of data used in this project. The current pre-processing scripts aren't well made, because the files in the website do not follow a specific naming protocol. Thus, only the scraping file is provided. 
